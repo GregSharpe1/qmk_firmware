@@ -41,17 +41,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      TAB , Q  , W  , E  , R  , T  ,                Y  , U  , I  , O  , P  ,DEL ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-     LSFT, A  , S  , D  , F  , G  ,                H  , J  , K  , L  ,SCLN,QUOT,
+     LSFT, A  , S  , D  , F  , G  ,                H  , J  , K  , L  ,SCLN,HASH,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-     LCTL, Z  , X  , C  , V  , B  ,HOME,     END , N  , M  ,COMM,DOT ,SLSH,RSFT,
+     LCTL, Z  , X  , C  , V  , B  ,SPC,      ENT,  N , M , COMM, DOT, SLSH,RSFT,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
-                       LGUI,LOWR,ENT ,         SPC ,RASE,LALT
+                       LALT,LOWR,SPC ,         ENT,RASE,LGUI
   //                  `----+----+----'        `----+----+----'
   ),
 
   [_LOWER] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-     TILD,EXLM, AT ,HASH,DLR ,PERC,               CIRC,AMPR,ASTR,LPRN,RPRN,BSPC,
+     TILD,EXLM, AT, QUOT,DLR, PERC,               CIRC,AMPR,ASTR,LPRN,RPRN,BSPC,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      RST , 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
