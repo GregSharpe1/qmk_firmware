@@ -8,13 +8,15 @@ extern keymap_config_t keymap_config;
 #define _QWERTY 0
 #define _LOWER 1
 #define _RAISE 2
+#define _PROG 3
 #define _ADJUST 16
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
   RAISE,
-  ADJUST
+  ADJUST,
+  PROG
 };
 
 #define KC_ KC_TRNS
@@ -38,8 +40,8 @@ enum custom_keycodes {
 #define KC_RVAD RGB_VAD
 
 // MEDIA CONTROLS  # MAC || # WIN
-#define KC_NEXT KC_MFFD //KC_MNXT
-#define KC_PREV KC_MRWD //KC_MPRV
+#define KC_NEXT KC_MNXT //KC_MNXT
+#define KC_PREV KC_MPRV //KC_MPRV
 // Toggle Play / Pause
 #define KC_TPLY KC_MPLY
 #define KC_STOP KC_MSTP
@@ -62,13 +64,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-     TILD,EXLM, AT, QUOT,DLR, PERC,               CIRC,AMPR,ASTR,LPRN,RPRN,BSPC,
+     TILD,EXLM, AT ,QUOT,DLR, PERC,               CIRC,AMPR,ASTR,LPRN,RPRN,BSPC,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-     RST , 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,    ,
+         , 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-     DEL ,RSAD,RSAI,    ,    ,LBRC,               RBRC,    ,    ,    ,PLUS,    ,
+     LSFT,    ,    ,    ,    ,LBRC,               RBRC,    ,    ,    ,PLUS,    ,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-     RTOG,NUBS,    ,    ,    ,LCBR,LPRN,     RPRN,RCBR,    ,    ,    ,MINS,    ,
+         ,NUBS,    ,    ,    ,LCBR,LPRN,     RPRN,RCBR,    ,    ,    ,MINS,    ,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
                            ,    ,DEL ,       DEL,    ,
   //                  `----+----+----'        `----+----+----'
@@ -84,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
      LSFT,    ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,    ,    ,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
-                           ,    ,    ,            ,    ,
+                            ,    ,    ,            ,    ,
   //                  `----+----+----'        `----+----+----'
   ),
 
@@ -94,11 +96,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
          ,EXLM,QUOT,HASH,DLR ,PERC,               CIRC,AMPR,ASTR,LPRN,RPRN,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-         ,    ,    ,    ,PGUP,UNDS,               EQL ,HOME,    ,    ,    ,BSLS,
+         ,    ,    ,    ,PGUP,UNDS,               EQL ,HOME,    ,    ,    ,    ,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
          ,    ,    ,    ,PGDN,MINS,    ,         ,PLUS,END ,    ,    ,    ,    ,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
                            ,    ,    ,             ,    ,
+  //                  `----+----+----'        `----+----+----'
+  ),
+
+  [_PROG] = LAYOUT_kc(
+  //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
+         ,    ,    ,    ,    ,    ,                   ,    ,    ,    ,    ,    ,
+  //|----+----+----+----+----+----|              |----+----+----+----+----+----|
+     RST ,    ,    ,    ,    ,    ,                   ,    ,    ,    ,    ,    ,
+  //|----+----+----+----+----+----|              |----+----+----+----+----+----|
+         ,RSAD,RSAI,   ,    ,    ,                   ,    ,    ,    ,    ,    ,
+  //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
+     RTOG,    ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,    ,    ,
+  //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
+                             ,    ,    ,        ,    ,
   //                  `----+----+----'        `----+----+----'
   )
 };
@@ -141,6 +157,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_ADJUST);
       } else {
         layer_off(_ADJUST);
+      }
+      return false;
+      break;
+    case PROG:
+      if (record->event.pressed) {
+        layer_on(_PROG);
+      } else {
+        layer_off(_PROG);
       }
       return false;
       break;
