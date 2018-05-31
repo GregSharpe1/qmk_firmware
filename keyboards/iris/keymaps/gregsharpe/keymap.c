@@ -1,6 +1,7 @@
 #include "iris.h"
 #include "action_layer.h"
 #include "eeconfig.h"
+#include "keymap_uk.h"
 
 extern keymap_config_t keymap_config;
 
@@ -51,11 +52,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      TAB , Q  , W  , E  , R  , T  ,                Y  , U  , I  , O  , P  ,DEL ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-     LSFT, A  , S  , D  , F  , G  ,                H  , J  , K  , L  ,SCLN,HASH,
+     LSFT, A  , S  , D  , F  , G  ,                H  , J  , K  , L  ,SCLN,NUHS,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-     LCTL, Z  , X  , C  , V  , B  ,SPC,      ENT,  N , M , COMM, DOT, SLSH,RSFT,
+     LCTL, Z  , X  , C  , V  , B  ,    ,     ENT , N  , M  ,COMM, DOT,SLSH,ENT ,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
-                       LALT,LOWR,SPC ,        BSPC,RASE,LGUI
+                         LOWR,LALT,SPC ,     BSPC,LGUI,RASE
   //                  `----+----+----'        `----+----+----'
   ),
 
@@ -65,11 +66,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      RST , 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-     DEL ,    ,    ,    ,    ,LBRC,               RBRC, P4 , P5 , P6 ,PLUS,    ,
+     DEL ,RSAD,RSAI,    ,    ,LBRC,               RBRC,    ,    ,    ,PLUS,    ,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-     BL_S,PIPE,    ,    ,    ,LCBR,LPRN,     RPRN,RCBR, P1 , P2 , P3 ,MINS,    ,
+     RTOG,NUBS,    ,    ,    ,LCBR,LPRN,     RPRN,RCBR,    ,    ,    ,MINS,    ,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
-                           ,    ,DEL ,         DEL ,    , P0
+                           ,    ,DEL ,       DEL,    ,
   //                  `----+----+----'        `----+----+----'
   ),
 
@@ -79,16 +80,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      MUTE,VOLD,VOLU,PREV,TPLY,NEXT,                   ,    ,    ,PSCR, INS,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-         ,MS_L,MS_D,MS_U,MS_R,    ,               LEFT,DOWN, UP ,RGHT,    ,    ,
+     LGUI,MS_L,MS_D,MS_U,MS_R,    ,               LEFT,DOWN, UP ,RGHT,    ,    ,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,    ,    ,
+     LSFT,    ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,    ,    ,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
                            ,    ,    ,            ,    ,
   //                  `----+----+----'        `----+----+----'
   ),
 
   [_RAISE] = LAYOUT_kc(
-  //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
+  //,----+----+----+----+----+----.               ,----+----+----+----+----+----.
      F12 , F1 , F2 , F3 , F4 , F5 ,                F6 , F7 , F8 , F9 ,F10 ,F11 ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
          ,EXLM,QUOT,HASH,DLR ,PERC,               CIRC,AMPR,ASTR,LPRN,RPRN,    ,
@@ -135,7 +136,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case ADJUST:
+    case (RAISE && LOWER) || (LOWER && RAISE):
       if (record->event.pressed) {
         layer_on(_ADJUST);
       } else {
